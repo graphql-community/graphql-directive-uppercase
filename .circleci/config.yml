@@ -1,0 +1,106 @@
+version: 2
+
+lint: &lint
+  working_directory: ~/graphql-directive-uppercase
+  steps:
+    - attach_workspace:
+        at: ~/graphql-directive-uppercase
+    - run: yarn lint
+
+test: &test
+  working_directory: ~/graphql-directive-uppercase
+  steps:
+    - attach_workspace:
+        at: ~/graphql-directive-uppercase
+    - run: yarn test
+
+install: &install
+  working_directory: ~/graphql-directive-uppercase
+  steps:
+    - checkout
+    - attach_workspace:
+        at: ~/graphql-directive-uppercase
+    - restore_cache:
+        keys:
+          - yarn-packages-{{ checksum "yarn.lock" }}
+          - yarn-packages-
+    - run: yarn install
+    - save_cache:
+        key: yarn-packages-{{ checksum "yarn.lock" }}
+        paths: 
+          - node_modules/
+    - persist_to_workspace:
+        root: .
+        paths: . 
+
+jobs:
+  install-dependencies-node-6:
+    <<: *install
+    docker:
+      - image: circleci/node:6
+  
+  install-dependencies-node-8:
+    <<: *install
+    docker:
+      - image: circleci/node:8
+
+  install-dependencies-node-9:
+    <<: *install
+    docker:
+      - image: circleci/node:9
+
+  lint-node-6:
+    <<: *lint
+    docker:
+      - image: circleci/node:6
+  
+  lint-node-8:
+    <<: *lint
+    docker:
+      - image: circleci/node:8
+
+  lint-node-9:
+    <<: *lint
+    docker:
+      - image: circleci/node:9
+
+  test-node-6:
+    <<: *test
+    docker:
+      - image: circleci/node:6
+  
+  test-node-8:
+    <<: *test
+    docker:
+      - image: circleci/node:8
+
+  test-node-9:
+    <<: *test
+    docker:
+      - image: circleci/node:9
+
+workflows:
+  version: 2
+  build-and-test:
+    jobs:
+      - install-dependencies-node-6
+      - install-dependencies-node-8
+      - install-dependencies-node-9 
+      - lint-node-6:
+          requires:
+            - install-dependencies-node-6
+      - test-node-6:
+          requires:
+            - install-dependencies-node-6
+      - lint-node-8:
+          requires:
+            - install-dependencies-node-8
+      - test-node-8:
+          requires:
+            - install-dependencies-node-8
+      - lint-node-9:
+          requires:
+            - install-dependencies-node-9
+      - test-node-9:
+          requires:
+            - install-dependencies-node-9

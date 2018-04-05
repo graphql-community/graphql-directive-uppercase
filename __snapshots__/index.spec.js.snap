@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`has defined initial declaration 1`] = `
+GraphQLDirective {
+  "args": Array [],
+  "astNode": undefined,
+  "description": "Converts (string) field to upper case form",
+  "locations": Array [
+    "FIELD_DEFINITION",
+  ],
+  "name": "upper",
+}
+`;
