@@ -52,9 +52,9 @@ type Query {
 
 I would love to see your contribution. ❤️
 
-For local development (and testing) is all you have to do just `yarn` and then `yarn dev`. This will start the server (powered by Micro from ZEIT) and Babel for transpilation of index.js.
+For local development (and testing), all you have to do is to run `yarn` and then `yarn dev`. This will start the Apollo server and you are ready to contribute 🎉
 
-Run `yarn test` for unit tests (we using Jest)
+Run yarn test (try --watch flag) for unit tests (we are using Jest)
 
 ## License
 
