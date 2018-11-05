@@ -5,7 +5,7 @@ const {
 } = require('graphql');
 const { SchemaDirectiveVisitor } = require('graphql-tools');
 
-class convertToLowerCase extends SchemaDirectiveVisitor {
+class convertToUpperCase extends SchemaDirectiveVisitor {
   static getDirectiveDeclaration(directiveName = 'upper') {
     return new GraphQLDirective({
       // register directive name
