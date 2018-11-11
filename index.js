@@ -31,4 +31,4 @@ class convertToUpperCase extends SchemaDirectiveVisitor {
   }
 }
 
-module.exports = convertToLowerCase;
+module.exports = convertToUpperCase;
